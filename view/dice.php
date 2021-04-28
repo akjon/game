@@ -12,7 +12,7 @@ $url = url("/session/destroy");
 $header = $header ?? null;
 $message = $message ?? null;
 $action = $action ?? null;
-// $diceAmount = $_POST["dice"] ?? 0;
+$diceAmount = $_POST["dice"] ?? 0;
 ?>
 
 <!-- <h1><?= var_dump($_SESSION["diceAmount"] ?? null) ?></h1> -->
@@ -36,18 +36,20 @@ $action = $action ?? null;
         <input type="hidden" name="stay">
         <button type="submit">Stay</button>
     </form>
-</form>
+    </form>
 </div>
 <div class="dice-area">
-    <p>
-    </p>
-</div>
+    <?php if ($diceAmount !== 0) : ?>
 
+        <p>
+        <p><?= $diceHandRoll1 ?></p>
+        </p>
+    <?php endif ?>
+</div>
 <!-- <p><?= $dieLastRoll ?></p> -->
 
 <p>Dicehand1</p>
 
-<p><?= $diceHandRoll1 ?></p>
 
 <?php
 var_dump($_SESSION);
