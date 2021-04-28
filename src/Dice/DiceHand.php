@@ -19,30 +19,27 @@ namespace joka20\Dice;
  */
 class DiceHand
 {
-    // private array $dices;
-    private int $sum;
-    public function __construct()
+    private array $dices;
+    private int $roll;
+    public function __construct($amount = 0)
     {
-        for ($i = 0; $i <= 6; $i++) {
+        $this->diceAmount = $amount;
+
+        for ($i = 0; $i < $this->diceAmount; $i++) {
             $this->dices[$i] = new Dice();
         }
     }
     public function roll(): void
     {
-        $len = count($this->dices);
 
-        $this->sum = 0;
-        for ($i = 0; $i <= 6; $i++) {
-            $this->sum += $this->dices[$i]->roll();
+        $this->roll = 0;
+        for ($i = 0; $i < $this->diceAmount; $i++) {
+            $this->roll += $this->dices[$i]->roll();
         }
     }
 
-    public function getLastRoll(): string
+    public function getLastRoll(): int
     {
-        $res = "";
-        for ($i = 0; $i <= 6; $i++) {
-            $res .= $this->dices[$i]->getLastRoll() . ", ";
-        }
-        return $res . " = " . $this->sum;
+        return $this->roll;
     }
 }

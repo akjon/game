@@ -58,19 +58,13 @@ class Router
             return;
         } else if ($method === "GET" && $path === "/dice") {
             $callable = new \joka20\Dice\Game();
+            $callable->initGame();
+            return;
+        } else if ($method === "POST" && $path === "/dice") {
+            $callable = new \joka20\Dice\Game();
             $callable->playGame();
-
-
-//            $data = [
-//                "header" => "Dice",
-//                "message" => "Dice!"
-//            ];
-//            $body = renderView("layout/dice.php", $data);
-//            sendResponse($body);
             return;
         }
-
-
         $data = [
             "header" => "404",
             "message" => "The page you are requesting is not here. You may also checkout the HTTP response code, it should be 404.",

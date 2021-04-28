@@ -4,31 +4,40 @@ declare(strict_types=1);
 
 
 namespace joka20\Dice;
-use function Mos\Functions\{renderView, sendResponse};
+use function Mos\Functions\{renderView, sendResponse, url};
 
 /**
  * Class Game.
  */
 class Game
 {
-    public function playGame(): void
+    public function initGame(): void
     {
         $data = [
-            "header" => "Dice",
-            "message" => "Dice!"
+            "header" => "Play 21",
+            "message" => "Choose how many dice to roll.",
+            "action" => url("/dice"),
+            
         ];
-
-        $die = new Dice();
-        $die->roll();
-        $diceHand = new DiceHand();
-        $diceHand->roll();
-
-        $data["dieLastRoll"] = $die->getLastRoll();
-        $data["diceHandRoll"] = $diceHand->getLastRoll();
-        $diceHand->roll();
-        $data["diceHandRoll1"] = $diceHand->getLastRoll();
 
         $body = renderView("layout/dice.php", $data);
         sendResponse($body);
+    }
+
+    public function playGame(): void
+    {
+        $die = new Dice();
+        $die->roll();
+        $diceHand = new DiceHand($_POST["dice"]);
+        $diceHand->roll();
+
+        $data["dieLastRoll"] = $die->getLastRoll();
+        $data["diceHandRoll1"] = $diceHand->getLastRoll();
+        // $diceHand->roll();
+        // $data["diceHandRoll2"] = $diceHand->getLastRoll();
+
+        $body = renderView("layout/dice.php", $data);
+        sendResponse($body);
+
     }
 }

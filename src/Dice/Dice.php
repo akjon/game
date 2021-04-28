@@ -18,13 +18,13 @@ namespace joka20\Dice;
  */
 class Dice
 {
-    const FACES = 6;
+    public $faces = 6;
 
     private ?int $roll = 0;
 
     public function roll(): ?int
     {
-        $this->roll = rand(1, self::FACES);
+        $this->roll = rand(1, $this->faces);
 
         return $this->roll;
     }
