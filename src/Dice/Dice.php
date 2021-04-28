@@ -29,7 +29,7 @@ class Dice
         return $this->roll;
     }
 
-    public function getLastRoll(): ?int
+    public function getLastSum(): ?int
     {
         return $this->roll;
     }

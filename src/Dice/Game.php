@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 
 namespace joka20\Dice;
+
 use function Mos\Functions\{renderView, sendResponse, url};
 
 /**
@@ -17,7 +18,6 @@ class Game
             "header" => "Play 21",
             "message" => "Choose how many dice to roll.",
             "action" => url("/dice"),
-            
         ];
 
         $body = renderView("layout/dice.php", $data);
@@ -26,18 +26,23 @@ class Game
 
     public function playGame(): void
     {
+        $data = [
+            "header" => "Play 21",
+            "message" => "Roll again or stay?",
+            "action" => url("/dice"),
+        ];
+
         $die = new Dice();
         $die->roll();
         $diceHand = new DiceHand($_POST["dice"]);
         $diceHand->roll();
 
-        $data["dieLastRoll"] = $die->getLastRoll();
-        $data["diceHandRoll1"] = $diceHand->getLastRoll();
+        $data["lastDice"] = $diceHand->getDice();
+        $data["diceHandSum"] = $diceHand->getLastSum();
         // $diceHand->roll();
-        // $data["diceHandRoll2"] = $diceHand->getLastRoll();
 
+        // $data["diceHandRoll2"] = $diceHand->getLastRoll();
         $body = renderView("layout/dice.php", $data);
         sendResponse($body);
-
     }
 }

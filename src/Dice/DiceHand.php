@@ -4,16 +4,6 @@ declare(strict_types=1);
 
 namespace joka20\Dice;
 
-
-// use function Mos\Functions\{
-//     destroySession,
-//     redirectTo,
-//     renderView,
-//     renderTwigView,
-//     sendResponse,
-//     url
-// };
-
 /**
  * Class DiceHand.
  */
@@ -38,8 +28,16 @@ class DiceHand
         }
     }
 
-    public function getLastRoll(): int
+    public function getLastSum(): int
     {
         return $this->roll;
+    }
+    public function getDice(): string
+    {
+        $res = '';
+        for ($i = 0; $i < $this->diceAmount; $i++) {
+            $res .= $this->dices[$i]->getLastSum() . ' ';
+        }
+        return $res;
     }
 }
