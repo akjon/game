@@ -34,7 +34,7 @@ class Router
             return;
         } else if ($method === "GET" && $path === "/session/destroy") {
             destroySession();
-            redirectTo(url("/session"));
+            redirectTo(url("/dice"));
             return;
         } else if ($method === "GET" && $path === "/debug") {
             $body = renderView("layout/debug.php");
