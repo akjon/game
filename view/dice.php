@@ -12,12 +12,9 @@ $url = url("/session/destroy");
 $header = $header ?? null;
 $message = $message ?? null;
 $action = $action ?? null;
-$score = $score ?? 0;
-$diceAmount = $_POST["dice"] ?? 0;
-?>
-
-<!-- <h1><?= var_dump($_SESSION["diceAmount"] ?? null) ?></h1> -->
-<!-- <h1><?= var_dump($diceAmount) ?></h1> -->
+$diceHandSum = $diceHandSum ?? null;
+$lastDice = $lastDice ?? null;
+$roll = $_POST["roll"] ?? 0;
 
 
 ?><h1><?= $header ?></h1>
@@ -26,21 +23,21 @@ $diceAmount = $_POST["dice"] ?? 0;
 
 <div class="btn-choices">
     <form action="<?= $action ?>" class="button" method="POST">
-        <input type="hidden" name="dice" value="1">
+        <input type="hidden" name="roll" value="1">
         <button type="submit">Roll one</button>
     </form>
     <form action="<?= $action ?>" class="button" method="POST">
-        <input type="hidden" name="dice" value="2">
+        <input type="hidden" name="roll" value="2">
         <button type="submit">Roll two</button>
     </form>
-    <form action="stay" class="button" method="POST">
-        <input type="hidden" name="stay">
+    <form action="<?php $action ?>" class="button" method="POST">
+        <input type="hidden" name="roll" value="stay">
         <button type="submit">Stay</button>
     </form>
     </form>
 </div>
 <div class="dice-area">
-    <?php if ($diceAmount !== 0) : ?>
+    <?php if ($roll !== 0) : ?>
         <p>Hand sum</p>
         <p><?= $diceHandSum ?></p>
         <p>Score</p>
