@@ -11,17 +11,18 @@ use function Mos\Functions\url;
 $url = url("/session/destroy");
 $header = $header ?? null;
 $message = $message ?? null;
+$resultMessage = $resultMessage ?? null;
 $action = $action ?? null;
-$diceHandSum = $diceHandSum ?? null;
 $lastDice = $lastDice ?? null;
-$roll = $_POST["roll"] ?? 0;
-
+$humanScore = $humanScore ?? 0;
+// $game = $_SESSION["game"] ?? null;
+$_SESSION["scores[]"] = $_SESSION["scores[]"] ?? null;
+$_SESSION["humanScore"] = $_SESSION["humanScore"] ?? 0;
 
 ?><h1><?= $header ?></h1>
 
-<p><?= $message ?></p>
 
-<div class="btn-choices">
+<div class="choices">
     <form action="<?= $action ?>" class="button" method="POST">
         <input type="hidden" name="roll" value="1">
         <button type="submit">Roll one</button>
@@ -31,30 +32,23 @@ $roll = $_POST["roll"] ?? 0;
         <button type="submit">Roll two</button>
     </form>
     <form action="<?php $action ?>" class="button" method="POST">
-        <input type="hidden" name="roll" value="stay">
+        <input type="hidden" name="roll" value="0">
         <button type="submit">Stay</button>
     </form>
-    </form>
+    <br>
 </div>
-<div class="dice-area">
-    <?php if ($roll !== 0) : ?>
-        <p>Hand sum</p>
-        <p><?= $diceHandSum ?></p>
-        <p>Score</p>
-        <p><?= $_SESSION["score"] = $diceHandSum + ($_SESSION["score"] ?? 0) ?></p>
-        <p>Dice rolled</p>
-        <p><?= $lastDice ?></p>
-    <?php endif ?>
+<p><?= $resultMessage ?></p>
+<p><strong><?= $message ?></strong></p>
+<div>
+        <h3>Dice rolled</h3>
+        <p><?= $lastDice . "<br>Current score: " . $_SESSION["humanScore"] ?></p>
+
+        <h4>
+        Human: <?= $_SESSION["scores['Human']"] . " - " . "Robot: " . $_SESSION["scores['Robot']"] ?? null ?>
+        </h4>
+        <br>
 </div>
-<!-- <p><?= $dieLastRoll ?></p> -->
-
-
-
 <?php
-var_dump($_SESSION);
-
-var_dump($_POST);
-
 echo <<<EOD
 <?php><a href="$url">destroy the session</a></?php>
 EOD;;

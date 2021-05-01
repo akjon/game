@@ -12,75 +12,111 @@ use function Mos\Functions\{renderView, sendResponse, url};
  */
 class Game
 {
-    private int $lastRoll;
-    private int $currentScore;
     private string $roll;
+    private int $lastRoll;
+    private int $humanScore = 0;
+    private int $roboScore = 0;
+    private array $data = [];
 
-    public function initGame(): void
+    public function __construct()
     {
-        $data = [
+        $this->data = [
             "header" => "Play 21",
             "message" => "Choose how many dice to roll.",
             "action" => url("/dice"),
         ];
-
-        $body = renderView("layout/dice.php", $data);
+        
+    }
+    
+    public function score()
+    {
+        $_SESSION["humanScore"] = 0;
+    }
+    
+    public function initGame(): void
+    {
+        
+        $_SESSION["scores"] ?? null;
+        $_SESSION["scores['Human']"] = 0;
+        $_SESSION["scores['Robot']"] = 0;
+        $body = renderView("layout/dice.php", $this->data);
         sendResponse($body);
     }
 
     public function playGame(): void
     {
-        $data = [
-            "header" => "Play 21",
-            "message" => "Roll again or stay?",
-            "action" => url("/dice"),
-        ];
+        $this->data["message"] = "Roll again?";
+        $this->humanRoll();
+        $this->humanScore = $_SESSION["humanScore"] ?? 0;
 
-        $diceHand = new DiceHand($_POST["roll"]);
-        $diceHand->roll();
-
-        $data["lastDice"] = $diceHand->getDice();
-        $data["diceHandSum"] = $diceHand->getLastSum();
-
-        $this->lastRoll = $diceHand->getLastSum();
-        $this->currentScore = $_SESSION["score"] ?? 0;
-        $this->roll = $_POST["roll"] ?? null;
-
-        if ($this->currentScore + $this->lastRoll === 21) {
-            var_dump("21 congrats!");
-        } else if ($this->currentScore + $this->lastRoll > 21) {
-            var_dump("Fat loser");
+        if ($this->humanScore === 21) {
             $this->roboRoll();
-        } elseif ($this->roll === "stay") {
-            var_dump("STAY");
+            $this->data["resultMessage"] = "Congrats you rolled 21 and robot rolled " . $this->roboScore;
+            $this->gameOver();
+            $this->score();
+        } else if ($this->humanScore > 21) {
+            $this->data["resultMessage"] = "Human is fat at " . ($this->humanScore);
+            $this->gameOver();
+            $this->score();
+        } elseif ($this->roll == 0) {
             $this->roboRoll();
+            $this->data["resultMessage"] = "Human stayed at " . $this->humanScore . ", robot got " . $this->roboScore;
+            $this->gameOver();
+            $this->score();
         }
 
-        $body = renderView("layout/dice.php", $data);
+        var_dump($_SESSION);
+        $body = renderView("layout/dice.php", $this->data);
         sendResponse($body);
     }
 
-    public function roboRoll()
+    public function humanRoll()
     {
-        $cpuHand = new DiceHand(1);
-        $cpuHand->roll();
-        $roboScore = $cpuHand->getLastSum();
 
-        while ($roboScore < 17) {
-            var_dump($roboScore);
-            $roboScore += $cpuHand->getLastSum();
-            var_dump($roboScore);
-            $cpuHand->roll();
-            if ($roboScore > 21) {
-                var_dump("Human wins");
-            } elseif ($roboScore === 21) {
-                var_dump("Robot won by rolling 21");
-            }
+        $_SESSION["game"] = "gameon";
+        $humanHand = new DiceHand($_POST["roll"]);
+        $humanHand->roll();
+
+        $this->data["lastDice"] = $humanHand->getDice();
+        $this->data["diceHandSum"] = $humanHand->getLastSum();
+
+        $this->lastRoll = $humanHand->getLastSum();
+        $this->roll = $_POST["roll"] ?? null;
+        $_SESSION["humanScore"] = $this->lastRoll + ($_SESSION["humanScore"] ?? 0);
+    }
+
+    public function roboRoll(): void
+    {
+
+        $roboHand = new DiceHand(1);
+        $roboHand->roll();
+        $this->roboScore = $roboHand->getLastSum();
+
+        while ($this->roboScore < 17) {
+            $this->roboScore += $roboHand->getLastSum();
+            $roboHand->roll();
         }
-        if ($roboScore > $this->currentScore) {
-            var_dump("Robot wins");
-        } else {
-            var_dump("Human wins");
+    }
+
+    public function gameOver(): void
+    {
+        $human = $this->humanScore;
+        $robot = $this->roboScore;
+
+        if ($human > $robot && $human <= 21) {
+            $_SESSION["scores['Human']"] = 1 + ($_SESSION["scores['Human']"] ?? 0);
+            $this->data["message"] = "Human wins!";
+        } else if ($robot > 21 && $human <= 21) {
+            $_SESSION["scores['Human']"] = 1 + ($_SESSION["scores['Human']"] ?? 0);
+            $this->data["message"] = "Human wins!";
+        } else if ($human >= 21 && $robot <= 21) {
+            $_SESSION["scores['Robot']"] = 1 + ($_SESSION["scores['Robot']"] ?? 0);
+            $this->data["message"] = "Robot wins!";
+        } else if ($robot > $human && $robot <= 21 || $robot == $human) {
+            $_SESSION["scores['Robot']"] = 1 + ($_SESSION["scores['Robot']"] ?? 0);
+            $this->data["message"] = "Robot wins!";
         }
+        $_SESSION["visibility"] = "hidden";
+        $_SESSION["game"] = "gameover";
     }
 }

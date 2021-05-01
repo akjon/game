@@ -10,7 +10,7 @@ main {
     min-height: 20em;
 }
 
-.btn-choices {
+.choices {
     display: flex;
     gap: 5px;
 }
@@ -19,4 +19,8 @@ footer {
     border-top: 1px solid #ccc;
     min-height: 4em;
     text-align: center;
+}
+
+.hidden {
+    visibility: hidden;
 }
