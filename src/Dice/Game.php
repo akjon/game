@@ -121,11 +121,4 @@ class Game
         $_SESSION["humanScore"] = 0;
     }
 
-    public function resetScores(): void
-    {
-        $_SESSION["scores['Human']"] = 0;
-        $_SESSION["scores['Robot']"] = 0;
-    }
-
-
 }

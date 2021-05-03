@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 use function Mos\Functions\url;
 
-$url = url("/dice/destroy");
+$url = url("/dice/reset");
 $header = $header ?? null;
 $message = $message ?? "";
 $resultMessage = $resultMessage ?? "<br>";
@@ -55,5 +55,4 @@ $die2 = url($_SESSION["die2"]);
     <br>
 </div>
 <br>
-
-<a href="<? $url ?>">Reset score</a>
+<a href="<?= $url ?>">Reset score</a>
