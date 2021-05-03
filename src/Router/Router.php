@@ -27,7 +27,7 @@ class Router
             return;
         } else if ($method === "GET" && $path === "/session/destroy") {
             destroySession();
-            redirectTo(url("/layout/debug.php"));
+            redirectTo(url("/session"));
             return;
         } else if ($method === "GET" && $path === "/debug") {
             $body = renderView("layout/debug.php");
@@ -56,6 +56,10 @@ class Router
         } else if ($method === "POST" && $path === "/dice") {
             $callable = new \joka20\Dice\Game();
             $callable->playGame();
+            return;
+        } else if ($method === "GET" && $path === "/dice/reset") {
+            destroySession();
+            redirectTo(url("/dice"));
             return;
         }
         $data = [
