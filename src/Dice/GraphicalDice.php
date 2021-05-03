@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace joka20\Dice;
 
-use function Mos\Functions\url;
 /**
  * Class GraphicalDice
  */
-class GraphicalDice extends diceHand
+class GraphicalDice extends Dice
 {
-    const FACES = [
+    public array $graphicalFaces = [1 =>
+    // "⚀",
+    // "⚁",
+    // "⚂",
+    // "⚃",
+    // "⚄",
+    // "⚅"
         "/img/dice-1.png",
         "/img/dice-2.png",
         "/img/dice-3.png",
@@ -18,16 +23,9 @@ class GraphicalDice extends diceHand
         "/img/dice-5.png",
         "/img/dice-6.png",
     ];
-    
-    public function __construct()
-    {
-       parent::__construct(6);
-    }
 
-    public function diceGraphics(): void
+    public function getGraphicalDie(): array
     {
-        ?>
-        <img src="<?= url(self::FACES[$this->getDice()]) ?>" alt="apa">
-        <?php
+        return $this->graphicalFaces;
     }
 }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace joka20\Dice;
 
 use function Mos\Functions\{renderView, sendResponse, url};
@@ -25,17 +24,10 @@ class Game
             "message" => "Choose how many dice to roll.",
             "action" => url("/dice"),
         ];
-        
     }
-    
-    public function score()
-    {
-        $_SESSION["humanScore"] = 0;
-    }
-    
+
     public function initGame(): void
     {
-        
         $_SESSION["scores"] ?? null;
         $_SESSION["scores['Human']"] = 0;
         $_SESSION["scores['Robot']"] = 0;
@@ -51,31 +43,31 @@ class Game
 
         if ($this->humanScore === 21) {
             $this->roboRoll();
-            $this->data["resultMessage"] = "Congrats you rolled 21 and robot rolled " . $this->roboScore;
+            $this->data["resultMessage"] = "You rolled 21 and robot rolled " . $this->roboScore . ". Roll again to play another round.";
+            $this->data["header"] = "Congratulations you hit 21!";
             $this->gameOver();
             $this->score();
         } else if ($this->humanScore > 21) {
-            $this->data["resultMessage"] = "Human is fat at " . ($this->humanScore);
+            $this->data["resultMessage"] = "Human is fat at " . ($this->humanScore) . ". Roll again to play another round.";
             $this->gameOver();
             $this->score();
         } elseif ($this->roll == 0) {
             $this->roboRoll();
-            $this->data["resultMessage"] = "Human stayed at " . $this->humanScore . ", robot got " . $this->roboScore;
+            $this->data["resultMessage"] = "Human stayed at " . $this->humanScore . ", robot got " . $this->roboScore . ". Roll again to play another round.";
             $this->gameOver();
             $this->score();
         }
 
-        var_dump($_SESSION);
         $body = renderView("layout/dice.php", $this->data);
         sendResponse($body);
     }
 
-    public function humanRoll()
+    public function humanRoll(): void
     {
-
-        $_SESSION["game"] = "gameon";
         $humanHand = new DiceHand($_POST["roll"]);
         $humanHand->roll();
+        $graphicalDie1 = new GraphicalDice();
+        $graphicalDie2 = new GraphicalDice();
 
         $this->data["lastDice"] = $humanHand->getDice();
         $this->data["diceHandSum"] = $humanHand->getLastSum();
@@ -83,6 +75,12 @@ class Game
         $this->lastRoll = $humanHand->getLastSum();
         $this->roll = $_POST["roll"] ?? null;
         $_SESSION["humanScore"] = $this->lastRoll + ($_SESSION["humanScore"] ?? 0);
+
+        $die1 = intval($this->data["lastDice"][0] ?? 0);
+        $die2 = intval($this->data["lastDice"][2] ?? 0);
+
+        $_SESSION["die1"] = $graphicalDie1->getGraphicalDie()[$die1] ?? null;
+        $_SESSION["die2"] = $graphicalDie2->getGraphicalDie()[$die2] ?? null;
     }
 
     public function roboRoll(): void
@@ -116,7 +114,10 @@ class Game
             $_SESSION["scores['Robot']"] = 1 + ($_SESSION["scores['Robot']"] ?? 0);
             $this->data["message"] = "Robot wins!";
         }
-        $_SESSION["visibility"] = "hidden";
-        $_SESSION["game"] = "gameover";
+    }
+
+    public function score()
+    {
+        $_SESSION["humanScore"] = 0;
     }
 }

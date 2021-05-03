@@ -4,29 +4,24 @@ declare(strict_types=1);
 
 namespace joka20\Dice;
 
-// use function Mos\Functions\{
-//     destroySession,
-//     redirectTo,
-//     renderView,
-//     renderTwigView,
-//     sendResponse,
-//     url
-// };
-
 /**
  * Class Dice.
  */
 class Dice
 {
-    public $faces = 6;
-
-    private ?int $roll = 0;
+    public int $faces = 6;
+    private ?int $roll;
 
     public function roll(): ?int
     {
-        $this->roll = rand(1, $this->faces);
+        $this->roll = rand(1, intval($this->faces));
 
         return $this->roll;
+    }
+
+    public function setFaces($faces): void
+    {
+        $this->faces = $faces;
     }
 
     public function getLastSum(): ?int

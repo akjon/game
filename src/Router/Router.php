@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace Mos\Router;
 
-use function Mos\Functions\{
-    destroySession,
-    redirectTo,
-    renderView,
-    renderTwigView,
-    sendResponse,
-    url
-};
+use function Mos\Functions\{destroySession, redirectTo, renderTwigView, renderView, sendResponse, url};
 
 /**
  * Class Router.

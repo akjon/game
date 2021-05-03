@@ -10,7 +10,9 @@ namespace joka20\Dice;
 class DiceHand
 {
     private array $dices;
+    private $diceAmount;
     private int $roll;
+
     public function __construct($amount = 0)
     {
         $this->diceAmount = $amount;
@@ -19,6 +21,7 @@ class DiceHand
             $this->dices[$i] = new Dice();
         }
     }
+
     public function roll(): void
     {
 
@@ -32,6 +35,7 @@ class DiceHand
     {
         return $this->roll;
     }
+
     public function getDice(): string
     {
         $res = '';

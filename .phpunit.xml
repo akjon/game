@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit
-    bootstrap="test/config.php">
+        bootstrap="test/config.php">
 
     <testsuites>
         <testsuite name="all">
@@ -15,8 +15,8 @@
     </filter>
 
     <logging>
-        <log type="coverage-html" target="build/coverage" lowUpperBound="35" highLowerBound="70" />
-        <log type="coverage-clover" target="build/coverage.clover" />
-   </logging>
+        <log type="coverage-html" target="build/coverage" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="build/coverage.clover"/>
+    </logging>
 
 </phpunit>

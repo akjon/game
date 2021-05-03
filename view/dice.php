@@ -10,45 +10,53 @@ use function Mos\Functions\url;
 
 $url = url("/session/destroy");
 $header = $header ?? null;
-$message = $message ?? null;
-$resultMessage = $resultMessage ?? null;
+$message = $message ?? "";
+$resultMessage = $resultMessage ?? "<br>";
 $action = $action ?? null;
 $lastDice = $lastDice ?? null;
 $humanScore = $humanScore ?? 0;
-// $game = $_SESSION["game"] ?? null;
 $_SESSION["scores[]"] = $_SESSION["scores[]"] ?? null;
 $_SESSION["humanScore"] = $_SESSION["humanScore"] ?? 0;
+$_SESSION["die1"] = $_SESSION["die1"] ?? "";
+$_SESSION["die2"] = $_SESSION["die2"] ?? "";
+$die1 = url($_SESSION["die1"]);
+$die2 = url($_SESSION["die2"]);
 
 ?><h1><?= $header ?></h1>
+    <div class="dice">
+        <?php if (strlen($die1) < 45) : ?>
+            <img src="<?= url("/img/dice-1.png") ?>" alt="">
+            <img src="<?= url("/img/dice-6.png") ?>" alt="">
+        <?php endif; ?>
 
+        <?php if (strlen($die1) > 45) : ?>
+            <img src="<?= $die1 ?>" alt="">
+            <img src="<?= $die2 ?>" alt="">
+        <?php endif; ?>
+    </div>
+    <h4>Human: <?= $_SESSION["scores['Human']"] . " - " . "Robot: " . $_SESSION["scores['Robot']"] ?? null ?></h4>
 
-<div class="choices">
-    <form action="<?= $action ?>" class="button" method="POST">
-        <input type="hidden" name="roll" value="1">
-        <button type="submit">Roll one</button>
-    </form>
-    <form action="<?= $action ?>" class="button" method="POST">
-        <input type="hidden" name="roll" value="2">
-        <button type="submit">Roll two</button>
-    </form>
-    <form action="<?php $action ?>" class="button" method="POST">
-        <input type="hidden" name="roll" value="0">
-        <button type="submit">Stay</button>
-    </form>
-    <br>
-</div>
-<p><?= $resultMessage ?></p>
-<p><strong><?= $message ?></strong></p>
-<div>
-        <h3>Dice rolled</h3>
-        <p><?= $lastDice . "<br>Current score: " . $_SESSION["humanScore"] ?></p>
-
-        <h4>
-        Human: <?= $_SESSION["scores['Human']"] . " - " . "Robot: " . $_SESSION["scores['Robot']"] ?? null ?>
-        </h4>
+    <p><?= "Current score: " . $_SESSION["humanScore"] ?></p>
+    <p><?= $message ?></p>
+    <p><?= $resultMessage ?></p>
+    <div class="choices">
+        <form action="<?= $action ?>" class="button" method="POST">
+            <input type="hidden" name="roll" value="1">
+            <button type="submit">Roll one</button>
+        </form>
+        <form action="<?= $action ?>" class="button" method="POST">
+            <input type="hidden" name="roll" value="2">
+            <button type="submit">Roll two</button>
+        </form>
+        <form action="<?php $action ?>" class="button" method="POST">
+            <input type="hidden" name="roll" value="0">
+            <button type="submit">Stay</button>
+        </form>
         <br>
-</div>
-<?php
+    </div>
+    <br>
+<?
 echo <<<EOD
-<?php><a href="$url">destroy the session</a></?php>
+<?php>
+<a href="$url">Reset game</a>
 EOD;;
