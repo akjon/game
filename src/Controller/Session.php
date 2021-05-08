@@ -31,7 +31,6 @@ class Session
     }
 
 
-
     public function destroy(): ResponseInterface
     {
         destroySession();

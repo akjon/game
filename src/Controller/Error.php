@@ -31,7 +31,6 @@ class Error
     }
 
 
-
     public function do405(array $allowed): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();

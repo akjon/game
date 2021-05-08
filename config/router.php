@@ -34,3 +34,10 @@ $router->addGroup("/form", function (RouteCollector $router) {
     $router->addRoute("GET", "/view", ["\Mos\Controller\Form", "view"]);
     $router->addRoute("POST", "/process", ["\Mos\Controller\Form", "process"]);
 });
+
+
+$router->addGroup("/dice", function (RouteCollector $router) {
+    $router->addRoute("GET", "", ["\Mos\Controller\Game21", "init"]);
+    $router->addRoute("POST", "", ["\Mos\Controller\Game21", "play"]);
+    $router->addRoute("GET", "/reset", ["\Mos\Controller\Game21", "reset"]);
+});

@@ -35,7 +35,6 @@ class Form
     }
 
 
-
     public function process(): ResponseInterface
     {
         $_SESSION["output"] = $_POST["content"] ?? null;

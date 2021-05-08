@@ -1,0 +1,13 @@
+
+FILE: /home/anax/repo/mvc/me/game_satan/view/dice.php
+----------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 17 | ERROR | [x] Whitespace found at end of line
+ 20 | ERROR | [x] Whitespace found at end of line
+----------------------------------------------------------------------
+PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+----------------------------------------------------------------------
+
+Time: 515ms; Memory: 4MB
+

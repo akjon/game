@@ -1,1 +1,1 @@
-/home/anax/repo/mvc/me/game/src/Dice/Game.php:81	The method gameOver() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.
+/home/anax/repo/mvc/me/game_satan/src/Dice/Game.php:80	The method gameOver() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.

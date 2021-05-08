@@ -9,20 +9,17 @@ declare(strict_types=1);
 use function Mos\Functions\url;
 
 $url = url("/dice/reset");
-$header = $header ?? null;
-$message = $message ?? "";
-$resultMessage = $resultMessage ?? "<br>";
 $action = $action ?? null;
-$lastDice = $lastDice ?? null;
-$humanScore = $humanScore ?? 0;
-$_SESSION["scores[]"] = $_SESSION["scores[]"] ?? null;
+$_SESSION["scores['Human']"] = $_SESSION["scores['Human']"] ?? 0;
+$_SESSION["scores['Robot']"] = $_SESSION["scores['Robot']"] ?? 0;
 $_SESSION["humanScore"] = $_SESSION["humanScore"] ?? 0;
 $_SESSION["die1"] = $_SESSION["die1"] ?? "";
-$_SESSION["die2"] = $_SESSION["die2"] ?? "";
+$_SESSION["die2"] = $_SESSION["die2"] ?? ""; 
 $die1 = url($_SESSION["die1"]);
 $die2 = url($_SESSION["die2"]);
+$_SESSION["lastDice"] = $_SESSION["lastDice"] ?? null; 
 
-?><h1><?= $header ?></h1>
+?><h1>Play 21</h1>
 <div class="dice">
     <?php if (strlen($die1) < 45) : ?>
         <img src="<?= url("/img/dice-1.png") ?>" alt="">
@@ -36,9 +33,9 @@ $die2 = url($_SESSION["die2"]);
 </div>
 <h4>Human: <?= $_SESSION["scores['Human']"] . " - " . "Robot: " . $_SESSION["scores['Robot']"] ?? null ?></h4>
 
-<p><?= "Current score: " . $_SESSION["humanScore"] ?></p>
-<p><?= $message ?></p>
-<p><?= $resultMessage ?></p>
+<p><?= "Current hand sum = " . $_SESSION["humanScore"] ?></p>
+<p><?= "Previous hands: " . $_SESSION["lastDice"] ?></p>
+<p><?= $_SESSION["message"] ?? null ?></p>
 <div class="choices">
     <form action="<?= $action ?>" class="button" method="POST">
         <input type="hidden" name="roll" value="1">

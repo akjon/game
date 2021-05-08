@@ -26,18 +26,17 @@ require INSTALL_PATH . "/vendor/autoload.php";
 require INSTALL_PATH . "/config/bootstrap.php";
 
 
-
 /**
  * Router
  *
  * Extract the path and route it to its handler.
  */
 $method = $_SERVER["REQUEST_METHOD"];
-$path   = getRoutePath();
+$path = getRoutePath();
 
 // Load the routes from the configuration file
 $router = null;
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $router) {
+$dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $router) {
     require INSTALL_PATH . "/config/router.php";
 });
 
