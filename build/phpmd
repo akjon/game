@@ -1,11 +1,1 @@
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/htdocs/index.php	-	Unexpected token: Mos\Router\Router, line: 9, col: 5, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/htdocs/index.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/Dice.php	-	Unexpected token: joka20\Dice, line: 5, col: 11, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/Dice.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/DiceHand.php	-	Unexpected token: joka20\Dice, line: 5, col: 11, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/DiceHand.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/Game.php	-	Unexpected token: joka20\Dice, line: 5, col: 11, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/Game.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/GraphicalDice.php	-	Unexpected token: joka20\Dice, line: 5, col: 11, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Dice/GraphicalDice.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Router/Router.php	-	Unexpected token: Mos\Router, line: 5, col: 11, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/src/Router/Router.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/src/functions.php	-	Unexpected token: Mos\Functions, line: 5, col: 11, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/src/functions.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/view/debug.php	-	Unexpected token: Mos\Functions, line: 9, col: 14, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/view/debug.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/view/dice.php	-	Unexpected token: Mos\Functions\url, line: 9, col: 14, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/view/dice.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/view/header.php	-	Unexpected token: Mos\Functions\url, line: 9, col: 14, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/view/header.php.
-/home/joka/dbwebb-kurser/mvc_wip/666/game3/view/session.php	-	Unexpected token: Mos\Functions\url, line: 9, col: 14, file: /home/joka/dbwebb-kurser/mvc_wip/666/game3/view/session.php.
+/home/anax/repo/mvc/me/game/src/Dice/Game.php:81	The method gameOver() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.
